@@ -19,6 +19,7 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+      working-directory: ./graph-coloring-viewer
 
     - name: Build
       run: npm run build:prod
