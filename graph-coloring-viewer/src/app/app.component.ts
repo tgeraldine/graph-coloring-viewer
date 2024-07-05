@@ -8,6 +8,7 @@ import { Edge } from './interfaces/edge';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  public nColors: number = 0;
   public vertices: Vertice[] = [];
   public edges: Edge[] = [];
 
@@ -37,20 +38,30 @@ export class AppComponent {
     const verticeSet = textSplit[0].split(this.elementSeparatorCharacter);
     const edgeSet = textSplit[1].split(this.elementSeparatorCharacter);
 
-    let newVertices: Vertice[] = []
+    let newVertices: Vertice[] = [];
 
     verticeSet.forEach((vertice: string) => {
       const element = vertice.slice(1, vertice.length - 1).split(',');
-      newVertices.push({index: parseInt(element[0]),color: parseInt(element[1])});
+      newVertices.push({
+        index: parseInt(element[0]),
+        color: parseInt(element[1]),
+      });
     });
 
     this.vertices = newVertices;
 
-    let newEdges: Edge[] = []
+    let newEdges: Edge[] = [];
 
     edgeSet.forEach((edge: string) => {
       const element = edge.slice(1, edge.length - 1).split(',');
-      newEdges.push({aVerticeIndex: parseInt(element[0]), bVerticeIndex: parseInt(element[1]), color: parseInt(element[2])});
+      let index = newEdges.push({
+        aVerticeIndex: parseInt(element[0]),
+        bVerticeIndex: parseInt(element[1]),
+        color: parseInt(element[2]),
+      }) - 1;
+
+      if (parseInt(element[2]) >= this.nColors)
+        this.nColors = parseInt(element[2]) + 1;
     });
 
     this.edges = newEdges;
