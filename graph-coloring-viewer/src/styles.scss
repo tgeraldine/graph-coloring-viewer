@@ -1,0 +1,31 @@
+body,
+html {
+    height: 100%;
+    margin: 0;
+}
+
+header {
+    height: 5%;
+    background-color: rgb(40, 40, 40);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer {
+    height: 2%;
+    background-color: rgb(40, 40, 40);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    color: rgb(240, 240, 240);
+    font-size: 200%;
+}
+
+h3 {
+    color: rgb(240, 240, 240);
+    font-size: 100%;
+}
