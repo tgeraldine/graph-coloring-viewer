@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration production --base-href https://tgeraldine.github.io/graph-coloring-viewer/",
+    "build:prod": "ng build --configuration production --base-href https://tgeraldine.github.io/graph-coloring-viewer/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
