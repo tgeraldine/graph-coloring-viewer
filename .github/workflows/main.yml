@@ -23,6 +23,7 @@ jobs:
 
     - name: Build
       run: npm run build:prod
+      working-directory: ./graph-coloring-viewer
 
     - name: Deploy
       if: success()
