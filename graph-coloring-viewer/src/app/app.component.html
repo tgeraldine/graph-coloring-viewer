@@ -1,5 +1,10 @@
 <div class="main-container">
-    <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]"
-        accept=".txt" [maxFileSize]="100000000" (onSelect)="handleUpload($event)"></p-fileUpload>
-        <app-graph-viewer />
+  <p-fileUpload
+    mode="basic"
+    chooseLabel="Choose"
+    accept=".txt"
+    [maxFileSize]="100000000"
+    (onSelect)="handleUpload($event)"
+  ></p-fileUpload>
+  <app-graph-viewer [vertices]="vertices" [edges]="edges"/>
 </div>
