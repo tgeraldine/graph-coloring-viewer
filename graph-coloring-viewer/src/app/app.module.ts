@@ -5,6 +5,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 
 import { AppComponent } from './app.component';
 import { GraphViewerComponent } from './components/graph-viewer/graph-viewer.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { GraphViewerComponent } from './components/graph-viewer/graph-viewer.com
     BrowserModule,
     BrowserAnimationsModule,
     FileUploadModule,
-    GraphViewerComponent
+    GraphViewerComponent,
+    SidebarComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

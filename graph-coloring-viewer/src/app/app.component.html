@@ -1,11 +1,13 @@
+<div id="main-container">
+  <app-sidebar class="item">
+    <div>
+      <p-fileUpload mode="basic" chooseLabel="Choose" accept=".txt" [maxFileSize]="100000000"
+        (onSelect)="handleUpload($event)" />
+    </div>
+    <div>
+      Hello
+    </div>
+  </app-sidebar>
 
-<div class="main-container">
-  <p-fileUpload
-    mode="basic"
-    chooseLabel="Choose"
-    accept=".txt"
-    [maxFileSize]="100000000"
-    (onSelect)="handleUpload($event)"
-  ></p-fileUpload>
-  <app-graph-viewer [nColors]="nColors" [vertices]="vertices" [edges]="edges"/>
+  <app-graph-viewer class="item" [nColors]="nColors" [vertices]="vertices" [edges]="edges" />
 </div>

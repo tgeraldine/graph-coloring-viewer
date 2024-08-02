@@ -26,6 +26,8 @@ class GraphViewerComponent implements AfterViewInit, OnChanges {
 
   private colors: string[] = [];
 
+  private radius = 200;
+
   public ngAfterViewInit(): void {
     if (this.vertices.length !== 0) this.drawGraph();
   }
@@ -35,19 +37,39 @@ class GraphViewerComponent implements AfterViewInit, OnChanges {
   }
 
   public drawGraph() {
-    const ctx = this.canvas.nativeElement.getContext('2d');
+    const context = this.canvas.nativeElement.getContext('2d');
 
-    if (ctx === undefined || ctx === null) return;
+    if (context === undefined || context === null) return;
 
     this.setColors(this.nColors);
+
+    this.drawEdges(context);
+    this.drawVertices(context);    
+  }
+
+  private drawVertices(context: CanvasRenderingContext2D): void {
+    const angleIncrement = this.calcAngleIncrementer();
 
     let centerX = this.canvas.nativeElement.width / 2;
     let centerY = this.canvas.nativeElement.height / 2;
 
-    let numPonints = this.vertices.length;
+    this.vertices.forEach((vertice: Vertice) => {
+      const angle = vertice.index * angleIncrement;
+      const x = centerX + this.radius * Math.cos(angle);
+      const y = centerY + this.radius * Math.sin(angle);
+      context.fillStyle = this.colors[vertice.color];
 
-    let radius = 200;
-    const angleIncrement = (2 * Math.PI) / numPonints;
+      context.beginPath();
+      context.arc(x, y, 10, 0, 2 * Math.PI);
+      context.fill();
+    });
+  }
+
+  private drawEdges(context: CanvasRenderingContext2D): void {
+    const angleIncrement = this.calcAngleIncrementer();
+
+    let centerX = this.canvas.nativeElement.width / 2;
+    let centerY = this.canvas.nativeElement.height / 2;
 
     this.edges.forEach((edge: Edge) => {
       let angle;
@@ -55,34 +77,27 @@ class GraphViewerComponent implements AfterViewInit, OnChanges {
       const v2 = this.vertices[edge.bVerticeIndex];
 
       angle = v1.index * angleIncrement;
-      const startX = centerX + radius * Math.cos(angle);
-      const startY = centerY + radius * Math.sin(angle);
+      const startX = centerX + this.radius * Math.cos(angle);
+      const startY = centerY + this.radius * Math.sin(angle);
 
       angle = v2.index * angleIncrement;
-      const endX = centerX + radius * Math.cos(angle);
-      const endY = centerY + radius * Math.sin(angle);
+      const endX = centerX + this.radius * Math.cos(angle);
+      const endY = centerY + this.radius * Math.sin(angle);
 
-      ctx.strokeStyle = this.colors[edge.color];
+      context.strokeStyle = this.colors[edge.color];
 
-      ctx.lineWidth = 2;
+      context.lineWidth = 2;
 
-      ctx.beginPath();
-      ctx.moveTo(startX, startY);
-      ctx.lineTo(endX, endY);
-      ctx.stroke();
-      ctx.closePath();
+      context.beginPath();
+      context.moveTo(startX, startY);
+      context.lineTo(endX, endY);
+      context.stroke();
+      context.closePath();
     });
+  }
 
-    this.vertices.forEach((vertice: Vertice) => {
-      const angle = vertice.index * angleIncrement;
-      const x = centerX + radius * Math.cos(angle);
-      const y = centerY + radius * Math.sin(angle);
-      ctx.fillStyle = this.colors[vertice.color];
-
-      ctx.beginPath();
-      ctx.arc(x, y, 10, 0, 2 * Math.PI);
-      ctx.fill();
-    });
+  private calcAngleIncrementer(): number {
+    return (2 * Math.PI) / this.vertices.length;
   }
 
   private setColors(n: number): void {
